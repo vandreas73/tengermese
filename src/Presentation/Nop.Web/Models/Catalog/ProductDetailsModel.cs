@@ -31,6 +31,7 @@ namespace Nop.Web.Models.Catalog
             ProductReviewOverview = new ProductReviewOverviewModel();
             TierPrices = new List<TierPriceModel>();
             ProductEstimateShipping = new ProductEstimateShippingModel();
+            ReviewItems = new List<ProductReviewModel>();
         }
 
         //picture(s)
@@ -41,6 +42,7 @@ namespace Nop.Web.Models.Catalog
         //videos
         public IList<VideoModel> VideoModels { get; set; }
 
+        public IList<ProductReviewModel> ReviewItems { get; set; }
         public string Name { get; set; }
         public string ShortDescription { get; set; }
         public string FullDescription { get; set; }

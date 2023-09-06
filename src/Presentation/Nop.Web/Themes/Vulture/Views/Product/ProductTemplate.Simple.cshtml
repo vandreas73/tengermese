@@ -219,7 +219,11 @@
                     @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsBeforeCollateral, additionalData = Model })
                 </div>
 
-                @await Component.InvokeAsync(typeof(ProductsAlsoPurchasedViewComponent), new { productId = Model.Id })
+                @await Html.PartialAsync("_ExistingProductReviews", new ExistingProductReviewsModel {
+                    Items = Model.ReviewItems
+                })
+
+                @* @await Component.InvokeAsync(typeof(ProductsAlsoPurchasedViewComponent), new { productId = Model.Id }) *@
                 @await Component.InvokeAsync(typeof(RelatedProductsViewComponent), new { productId = Model.Id })
             </div>
 
@@ -289,6 +293,7 @@
             }
 
         </form>
+        
         @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.ProductDetailsBottom, additionalData = Model })
     </div>
 </div>

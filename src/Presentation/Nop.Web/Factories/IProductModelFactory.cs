@@ -73,6 +73,8 @@ namespace Nop.Web.Factories
         /// </returns>
         Task<ProductReviewsModel> PrepareProductReviewsModelAsync(ProductReviewsModel model, Product product);
 
+        Task<IList<ProductReviewModel>> PrepareProductReviewItemsAsync(Product product);
+
         /// <summary>
         /// Prepare the customer product reviews model
         /// </summary>

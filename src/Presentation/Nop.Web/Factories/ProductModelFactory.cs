@@ -1845,6 +1845,67 @@ namespace Nop.Web.Factories
             return model;
         }
 
+        public virtual async Task<IList<ProductReviewModel>> PrepareProductReviewItemsAsync(Product product)
+        {
+            var currentStore = await _storeContext.GetCurrentStoreAsync();
+            var productReviews = await _productService.GetAllProductReviewsAsync(
+                approved: true, 
+                productId: product.Id,
+                storeId: _catalogSettings.ShowProductReviewsPerStore ? currentStore.Id : 0);
+            var currentCustomer = await _workContext.GetCurrentCustomerAsync();
+
+            var reviewItems = new List<ProductReviewModel>();
+            //filling data from db
+            foreach (var pr in productReviews)
+            {
+                var customer = await _customerService.GetCustomerByIdAsync(pr.CustomerId);
+
+                var productReviewModel = new ProductReviewModel
+                {
+                    Id = pr.Id,
+                    CustomerId = pr.CustomerId,
+                    CustomerName = await _customerService.FormatUsernameAsync(customer),
+                    AllowViewingProfiles = _customerSettings.AllowViewingProfiles && customer != null && !await _customerService.IsGuestAsync(customer),
+                    Title = pr.Title,
+                    ReviewText = pr.ReviewText,
+                    ReplyText = pr.ReplyText,
+                    Rating = pr.Rating,
+                    Helpfulness = new ProductReviewHelpfulnessModel
+                    {
+                        ProductReviewId = pr.Id,
+                        HelpfulYesTotal = pr.HelpfulYesTotal,
+                        HelpfulNoTotal = pr.HelpfulNoTotal,
+                    },
+                    WrittenOnStr = (await _dateTimeHelper.ConvertToUserTimeAsync(pr.CreatedOnUtc, DateTimeKind.Utc)).ToString("g"),
+                };
+
+                if (_customerSettings.AllowCustomersToUploadAvatars)
+                {
+                    productReviewModel.CustomerAvatarUrl = await _pictureService.GetPictureUrlAsync(
+                        await _genericAttributeService.GetAttributeAsync<int>(customer, NopCustomerDefaults.AvatarPictureIdAttribute),
+                        _mediaSettings.AvatarPictureSize, _customerSettings.DefaultAvatarEnabled, defaultPictureType: PictureType.Avatar);
+                }
+
+                foreach (var q in await _reviewTypeService.GetProductReviewReviewTypeMappingsByProductReviewIdAsync(pr.Id))
+                {
+                    var reviewType = await _reviewTypeService.GetReviewTypeByIdAsync(q.ReviewTypeId);
+
+                    productReviewModel.AdditionalProductReviewList.Add(new ProductReviewReviewTypeMappingModel
+                    {
+                        ReviewTypeId = q.ReviewTypeId,
+                        ProductReviewId = pr.Id,
+                        Rating = q.Rating,
+                        Name = await _localizationService.GetLocalizedAsync(reviewType, x => x.Name),
+                        VisibleToAllCustomers = reviewType.VisibleToAllCustomers || currentCustomer.Id == pr.CustomerId,
+                    });
+                }
+
+                reviewItems.Add(productReviewModel);
+            }
+
+            return reviewItems;
+        }
+
         /// <summary>
         /// Prepare the customer product reviews model
         /// </summary>

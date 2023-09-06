@@ -62,6 +62,7 @@ namespace Nop.Web.Controllers
         private readonly LocalizationSettings _localizationSettings;
         private readonly ShoppingCartSettings _shoppingCartSettings;
         private readonly ShippingSettings _shippingSettings;
+        private readonly Areas.Admin.Factories.IProductReviewModelFactory _productReviewModelFactory;
 
         #endregion
 
@@ -93,7 +94,8 @@ namespace Nop.Web.Controllers
             IWorkflowMessageService workflowMessageService,
             LocalizationSettings localizationSettings,
             ShoppingCartSettings shoppingCartSettings,
-            ShippingSettings shippingSettings)
+            ShippingSettings shippingSettings,
+            Areas.Admin.Factories.IProductReviewModelFactory productReviewModelFactory)
         {
             _captchaSettings = captchaSettings;
             _catalogSettings = catalogSettings;
@@ -122,6 +124,7 @@ namespace Nop.Web.Controllers
             _localizationSettings = localizationSettings;
             _shoppingCartSettings = shoppingCartSettings;
             _shippingSettings = shippingSettings;
+            _productReviewModelFactory = productReviewModelFactory;
         }
 
         #endregion
@@ -232,6 +235,8 @@ namespace Nop.Web.Controllers
 
             //model
             var model = await _productModelFactory.PrepareProductDetailsModelAsync(product, updatecartitem, false);
+            var productReviewsModel = new ProductReviewsModel();
+            model.ReviewItems = await _productModelFactory.PrepareProductReviewItemsAsync(product);
             //template
             var productTemplateViewPath = await _productModelFactory.PrepareProductTemplateViewPathAsync(product);
 
