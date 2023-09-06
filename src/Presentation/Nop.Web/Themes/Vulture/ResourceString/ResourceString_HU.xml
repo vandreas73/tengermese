@@ -3,55 +3,55 @@
 <Language Name="Magyar">
   
   <LocaleResource Name="Theme.Vulture.Language.Selector.Title">
-      <Value>SELECT LANGUAGE</Value>
+      <Value>Válasszon nyelvet</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Currency.Selector.Title">
-      <Value>SELECT CURRENCY</Value>
+      <Value>Válasszon pénznemet</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Homepage.Category.Title">
-      <Value>Categories</Value>
+      <Value>Kategóriák</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Filter.Title">
-      <Value>Show Filters</Value>
+      <Value>Szűrők</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Product.Detail">
-      <Value>Details</Value>
+      <Value>Részletek</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Product.Specifications">
-      <Value>Specifications</Value>
+      <Value>Specifikáció</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Order.Image">
-      <Value>Image</Value>
+      <Value>Kép</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Order.Number">
-      <Value>Order Number</Value>
+      <Value>Megrendelésszám</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Order.Status">
-      <Value>Order Status</Value>
+      <Value>Megrendelés státusza</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Order.Date">
-      <Value>Order Date</Value>
+      <Value>Megrendelés dátuma</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Order.Total">
-      <Value>Order Total</Value>
+      <Value>Megrendelés összege</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Order.detail">
-      <Value>Detail</Value>
+      <Value>Részletek</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Order.Summary.Title">
-      <Value>Summary</Value>
+      <Value>Összegzés</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Tax.Selector.Title">
@@ -59,91 +59,91 @@
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Login.RegisterLink.Title">
-      <Value>Don't Have An Account Yet?</Value>
+      <Value>Nincs még fiókja?</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Customer.Upload.Avtar">
-      <Value>choose a file</Value>
+      <Value>Válasszon egy fájlt</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Clear.wishlist">
-      <Value>Clear Wishlist</Value>
+      <Value>Kívánságlista törlése</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Move.Wishlistitemtocart.Confirmation.Title">
-      <Value>Add To Cart this item?</Value>
+      <Value>Beteszi a kosárba?</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Move.Wishitemtocart.Confirmation.Description">
-      <Value>Are you sure want to add to cart this item from Wishlist?</Value>
+      <Value>Biztosan hozzáadja a kívánságlistájának ezen elemét a kosarához?</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Move.Itemtocart.Confirmation.Confirmbuttontext">
-      <Value>Yes Move it!</Value>
+      <Value>Igen</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Clear.Wishlistitem.Confirmation.Title">
-      <Value>Delete this Wishlist item?</Value>
+      <Value>Törli?</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Clear.Wishlist.Confirmation.Description">
-      <Value>Are you sure want to remove this item from Wishlist?</Value>
+      <Value>Biztosan törli ezt az elemet a kívánságlistáról?</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Clear.Cart.Confirmation.Confirmbuttontext">
-      <Value>Yes, Delete it!</Value>
+      <Value>Igen, törlöm</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Clear.wishlist.confirmation.title">
-      <Value>Delete all Wishlist items?</Value>
+      <Value>Törli a kívánságlistát?</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Clear.wishlistall.confirmation.Description">
-      <Value>Are you sure want to remove all items from Wishlist?</Value>
+      <Value>Biztosan eltávolít minden elemet a kívánságlistáról?</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Move.Wishlisttocart.Confirmation.Title">
-      <Value>Add To Cart all items?</Value>
+      <Value>Kosárba teszi ezeket?</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Move.Allwishlist.Confirmation.Description">
-      <Value>Are you sure want to add to cart this all items from Wishlist?</Value>
+      <Value>Biztosan hozzá akarja adni a kosarához ezt az összes elemet a kívánságlistáról?</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Clear.Cart">
-      <Value>Clear Cart</Value>
+      <Value>Kosár törlése</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Clear.Cart.Confirmation">
-      <Value>Delete all Cart items?</Value>
+      <Value>Kiüríti a kosarat?</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Clear.Cart.Confirmation.Description">
-      <Value>Are you sure want to remove all items from cart?</Value>
+      <Value>Biztosan töröl minden elemet a kosárból?</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Clear.Cartitem.confirmation">
-      <Value>Delete this cart item?</Value>
+      <Value>Törli ezt az elemet?</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Clear.Cartitem.Confirmation.Description">
-      <Value>Are you sure want to remove this item from cart?</Value>
+      <Value>Biztosan törli a kosár ezen elemét?</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Mini.Shopping.Cart">
-      <Value>Shopping Cart</Value>
+      <Value>Kosár</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Customerinfo.Hi.Title">
-      <Value>HI</Value>
+      <Value>Üdvözöljük</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Cart.Remove.Item.Button">
-      <Value>Remove</Value>
+      <Value>Eltávolít</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Clear.Cart.Confirmation.Cancelbuttontext">
-      <Value>Cancel</Value>
+      <Value>Mégsem</Value>
   </LocaleResource>
   
   <LocaleResource Name="Theme.Vulture.Header.Search.Button.Text">
