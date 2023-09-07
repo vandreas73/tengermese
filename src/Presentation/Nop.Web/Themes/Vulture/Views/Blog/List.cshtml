@@ -51,7 +51,21 @@
                     </div>
                     @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.BlogListPageBeforePostBody, additionalData = item })
                     <div class="post-body">
-                        @Html.Raw(!string.IsNullOrEmpty(item.BodyOverview) ? item.BodyOverview : item.Body)
+                        @if (string.IsNullOrEmpty(item.BodyOverview))
+                        {
+                            @if (item.Body.Length <= 200)
+                            {
+                                @Html.Raw(item.Body)
+                            }
+                            else
+                            {
+                                @Html.Raw(item.Body.Substring(0, 200) + "...")
+                            }
+                        }
+                        else
+                        {
+                            @Html.Raw(item.BodyOverview)
+                        }
                     </div>
                     @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.BlogListPageAfterPostBody, additionalData = item })
                     <div class="blog-details">
