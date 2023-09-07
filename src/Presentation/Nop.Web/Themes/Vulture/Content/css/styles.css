@@ -1458,7 +1458,6 @@ label, label + * {
 .block .sublist {
     margin: 5px 0 5px;
     padding-left: 15px;
-    display: none;
 }
 
 .block .sublist li > .sublist{
