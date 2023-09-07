@@ -5246,24 +5246,24 @@ label, label + * {
   margin: 0;
 }
 
-.news-items,
+/* .news-items,
 .blog-posts {
     display: flex;
     flex-wrap: wrap;
-}
+} */
 
 .blog-page .post,
 .news-items .news-item {
-    width: 49%;
+    width: 100%;
     margin: 0 0 2% 2%;
     background: #f4f4f4;
     padding: 20px;
 }
 
-.blog-page .post:nth-child(2n+1),
+/* .blog-page .post:nth-child(2n+1),
 .news-items .news-item:nth-child(2n+1) {
     margin-left: 0;
-}
+} */
 
 .news-list-homepage .news-item {
     float: left;
