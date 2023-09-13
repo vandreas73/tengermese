@@ -3,6 +3,7 @@ using Nop.Services.Plugins;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
+using Nop.Web.Framework.Infrastructure;
 
 public class HelloWorldPlugin : BasePlugin, IWidgetPlugin
 {
