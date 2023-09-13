@@ -1727,7 +1727,7 @@ namespace Nop.Web.Factories
                 {
                     var categoryIds = new List<int>();
                     var manufacturerId = 0;
-                    var searchInDescriptions = false;
+                    var searchInDescriptions = true;
                     var vendorId = 0;
                     if (searchModel.advs)
                     {
