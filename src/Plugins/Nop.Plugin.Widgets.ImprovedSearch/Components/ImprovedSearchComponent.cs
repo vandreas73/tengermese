@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DocumentFormat.OpenXml.EMMA;
 using Microsoft.AspNetCore.Mvc;
+using Nop.Plugin.Widgets.ImprovedSearch.Models;
 using Nop.Plugin.Widgets.ImprovedSearch.Services;
 using Nop.Web.Framework.Components;
 using Nop.Web.Models.Blogs;
@@ -21,10 +22,7 @@ namespace Nop.Plugin.Widgets.ImprovedSearch.Components
 
         public async Task<IViewComponentResult> InvokeAsync(string widgetZone, SearchModel additionalData)
         {
-            return View("~/Plugins/Widgets.ImprovedSearch/Views/BlogList.cshtml", new BlogPostListModel
-            {
-                BlogPosts = await _improvedSearchService.Search(additionalData)
-            });
+            return View("~/Plugins/Widgets.ImprovedSearch/Views/BlogList.cshtml", await _improvedSearchService.Search(additionalData));
         }
     }
 }
