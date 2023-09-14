@@ -2,11 +2,7 @@
 
 @using Nop.Core.Domain.Blogs
 
-<div class="page blog-page">
-    <div class="vult-page-title"><h2>
-        @T("Blog")
-    </h2></div>
-    <div class="page-body">
+<div class="page-body">
         <div class="blog-posts">
             @if (!string.IsNullOrWhiteSpace(Model.WarningMessage))
             {
@@ -84,4 +80,3 @@
             </div>
         }
     </div>
-</div>

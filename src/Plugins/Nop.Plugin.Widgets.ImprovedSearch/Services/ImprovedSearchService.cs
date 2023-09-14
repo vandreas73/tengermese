@@ -18,7 +18,7 @@ namespace Nop.Plugin.Widgets.ImprovedSearch.Services
 {
     public interface IImprovedSearchService
     {
-        public Task<ImprovedBlogPostListModel> Search(SearchModel searchModel);
+        public Task<ImprovedSearchModel> Search(SearchModel searchModel);
     }
 
     public class ImprovedSearchService : IImprovedSearchService
@@ -41,15 +41,14 @@ namespace Nop.Plugin.Widgets.ImprovedSearch.Services
             _localizationService = localizationService;
         }
 
-        public async Task<ImprovedBlogPostListModel> Search(SearchModel searchModel)
+        public async Task<ImprovedSearchModel> Search(SearchModel searchModel)
         {
             if (string.IsNullOrWhiteSpace(searchModel?.q) || searchModel.q.Trim().Length < _catalogSettings.ProductSearchTermMinimumLength)
             {
-                return new ImprovedBlogPostListModel()
-                {
-                    WarningMessage = string.Format(await _localizationService.GetResourceAsync("Search.SearchTermMinimumLengthIsNCharacters"),
-                            _catalogSettings.ProductSearchTermMinimumLength)
-                };
+                var improvedSearchModel = new ImprovedSearchModel();
+                improvedSearchModel.BlogPostListModel.WarningMessage = string.Format(await _localizationService.GetResourceAsync("Search.SearchTermMinimumLengthIsNCharacters"),
+                            _catalogSettings.ProductSearchTermMinimumLength);
+                return improvedSearchModel;
             }
 
             var blogPosts = await _blogPostRepository.GetAllAsync(query =>
@@ -63,9 +62,12 @@ namespace Nop.Plugin.Widgets.ImprovedSearch.Services
 
             if (blogPosts.Count == 0)
             {
-                return new ImprovedBlogPostListModel()
+                return new ImprovedSearchModel()
                 {
-                    NoResultMessage = await _localizationService.GetResourceAsync("plugins.widgets.improvedsearch.blog.noresult")
+                    BlogPostListModel = new ImprovedBlogPostListModel()
+                    {
+                        NoResultMessage = await _localizationService.GetResourceAsync("plugins.widgets.improvedsearch.blog.noresult")
+                    }
                 };
             }
 
@@ -76,9 +78,11 @@ namespace Nop.Plugin.Widgets.ImprovedSearch.Services
                 await _blogModelFactory.PrepareBlogPostModelAsync(blogPostModel, blogPost, false);
                 blogPostModels.Add(blogPostModel);
             }
-            return new ImprovedBlogPostListModel()
-            {
-                BlogPosts = blogPostModels
+            return new ImprovedSearchModel{
+                BlogPostListModel = new ImprovedBlogPostListModel()
+                {
+                    BlogPosts = blogPostModels
+                }
             };
         }
     }

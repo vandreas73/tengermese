@@ -22,7 +22,7 @@ namespace Nop.Plugin.Widgets.ImprovedSearch.Components
 
         public async Task<IViewComponentResult> InvokeAsync(string widgetZone, SearchModel additionalData)
         {
-            return View("~/Plugins/Widgets.ImprovedSearch/Views/BlogList.cshtml", await _improvedSearchService.Search(additionalData));
+            return View("~/Plugins/Widgets.ImprovedSearch/Views/NonCatalogResults.cshtml", await _improvedSearchService.Search(additionalData));
         }
     }
 }

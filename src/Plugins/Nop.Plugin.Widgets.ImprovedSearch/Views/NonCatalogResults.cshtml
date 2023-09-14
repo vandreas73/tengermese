@@ -1,0 +1,12 @@
+@model ImprovedSearchModel
+
+@using Nop.Core.Domain.Blogs
+
+<div class="page blog-page">
+    <div class="vult-page-title">
+        <h2>
+            @T("Blog")
+        </h2>
+    </div>
+    @(await Html.PartialAsync("~/Plugins/Widgets.ImprovedSearch/Views/_BlogList.cshtml", Model.BlogPostListModel))
+</div>
