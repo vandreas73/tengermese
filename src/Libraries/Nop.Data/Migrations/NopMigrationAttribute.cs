@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using FluentMigrator;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Nop.Data.Migrations
 {
@@ -13,6 +14,10 @@ namespace Nop.Data.Migrations
 
         protected static long GetVersion(string dateTime)
         {
+            if (dateTime == "")
+            {
+                dateTime = "2023/09/13 10:49:55:1687541";
+            }
             return DateTime.ParseExact(dateTime, NopMigrationDefaults.DateFormats, CultureInfo.InvariantCulture).Ticks;
         }
 
