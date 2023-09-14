@@ -25,7 +25,7 @@ namespace Nop.Plugin.Widgets.ImprovedSearch
         /// <returns>View component type</returns>
         public Type GetWidgetViewComponent(string widgetZone)
         {
-            return typeof(CustomViewComponent);
+            return typeof(ImprovedSearchComponent);
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Nop.Plugin.Widgets.ImprovedSearch
         /// </returns>
         public Task<IList<string>> GetWidgetZonesAsync()
         {
-            return Task.FromResult<IList<string>>(new List<string> { "home_page_before_categories" });
+            return Task.FromResult<IList<string>>(new List<string> { PublicWidgetZones.ProductSearchPageAfterResults });
         }
 
         public override async Task InstallAsync()
