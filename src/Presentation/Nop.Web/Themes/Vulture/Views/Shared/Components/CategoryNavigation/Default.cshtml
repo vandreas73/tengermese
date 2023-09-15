@@ -69,29 +69,6 @@
     }
 }
 
-@if (Model.Categories.Count > 0)
-{
-    <div class="block block-category-navigation">
-        <div class="title">
-            <strong>@T("Categories")</strong>
-            <span class="Vult-right-arrow"></span>
-        </div>
-        <div class="listbox">
-            <ul class="list">
-                @foreach (var category in Model.Categories)
-                {
-                    var categoryLineModel = new CategoryNavigationModel.CategoryLineModel
-                    {
-                        CurrentCategoryId = Model.CurrentCategoryId,
-                        Category = category
-                    };
-                    await CategoryLine(categoryLineModel);
-                }
-            </ul>
-        </div>
-    </div>
-}
-
 <script asp-location="Footer">
     $(function () { // Dropdown toggle
         $('.block .list li #Vult-right-arrow-toggle').click(function () {

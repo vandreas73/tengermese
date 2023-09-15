@@ -33,7 +33,7 @@
 
 <div class="section-width">
     <div class="section-padding">
-        <div class="side-2 generalLeftSide">
+        <div class="side-2 generalLeftSide" style="background:inherit">
             @if (IsSectionDefined("left"))
             {
                 @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.LeftSideColumnBefore })
