@@ -8,7 +8,7 @@ namespace Nop.Plugin.Widgets.ImprovedSearch.Models
 {
     public class ImprovedSearchModel
     {
-        public ImprovedBlogPostListModel BlogPostListModel { get; set; } = new();
-        public ImprovedTopicListModel TopicListModel { get; set; } = new();
+        public ImprovedBlogPostListModel BlogPostListModel { get; set; }
+        public ImprovedTopicListModel TopicListModel { get; set; }
     }
 }

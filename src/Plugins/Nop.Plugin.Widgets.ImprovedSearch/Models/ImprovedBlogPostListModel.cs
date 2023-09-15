@@ -7,16 +7,8 @@ using Nop.Web.Models.Blogs;
 
 namespace Nop.Plugin.Widgets.ImprovedSearch.Models
 {
-    public record ImprovedBlogPostListModel : BlogPostListModel
+    public class ImprovedBlogPostListModel : ImprovedModelBase
     {
-        /// <summary>
-        /// Gets or sets the warning message
-        /// </summary>
-        public string WarningMessage { get; set; } = "";
-
-        /// <summary>
-        /// Gets or sets the message if there are no products to return
-        /// </summary>
-        public string NoResultMessage { get; set; } = "";
+        public IList<BlogPostModel> BlogPosts { get; set; } = new List<BlogPostModel>();
     }
 }
