@@ -18,7 +18,7 @@
             {
                 @foreach (var item in Model.Topics)
                 {
-                    <div class="post">
+                    <div class="post search-post">
                         <div class="post-head">
                             <a class="post-title" href="@(Url.RouteUrl<Topic>(new { SeName = item.SeName }))">@item.Title</a>
                         </div>
