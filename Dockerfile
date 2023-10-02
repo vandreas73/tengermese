@@ -53,6 +53,8 @@ WORKDIR /src/Plugins/Nop.Plugin.Widgets.NivoSlider
 RUN dotnet build Nop.Plugin.Widgets.NivoSlider.csproj -c Release
 WORKDIR /src/Plugins/Nop.Plugin.Widgets.What3words
 RUN dotnet build Nop.Plugin.Widgets.What3words.csproj -c Release
+WORKDIR /src/Plugins/Nop.Plugin.Widgets.ImprovedSearch
+RUN dotnet build Nop.Plugin.Widgets.ImprovedSearch.csproj -c Release
 
 # publish project
 WORKDIR /src/Presentation/Nop.Web   
@@ -96,6 +98,8 @@ RUN chmod 755 /entrypoint.sh
 WORKDIR /app
 
 COPY --from=build /app/published .
+
+COPY /src/Presentation/Nop.Web/plugins.json /app/App_Data/plugins.json
 
 EXPOSE 80
                             
