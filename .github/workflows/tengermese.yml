@@ -41,3 +41,15 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/tengermese:${{ github.sha }}
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Azure CLI script
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.30.0
+        inlineScript: |
+          az webapp config container set --name tengermese-web-app --resource-group Meseterapeuta-honlap --docker-custom-image-name vandreas73/tengermese:${{ github.sha }}
