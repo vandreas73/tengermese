@@ -21,6 +21,14 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+    - name: Increment version
+      run: |
+        # Read the version from the file
+        VERSION=$(cat version.txt)
+        # Increment the version
+        NEW_VERSION=$(($VERSION + 1))
+        # Save the incremented version back to the file
+        echo $NEW_VERSION > version.txt
     -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -31,4 +39,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tengermese:0.3
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/tengermese:$NEW_VERSION
