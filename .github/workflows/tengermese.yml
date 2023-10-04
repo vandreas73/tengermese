@@ -24,11 +24,11 @@ jobs:
     - name: Increment version
       run: |
         # Read the version from the file
-        VERSION=$(cat version.txt)
+        VERSION=$(cat version_number.txt)
         # Increment the version
         NEW_VERSION=$(($VERSION + 1))
         # Save the incremented version back to the file
-        echo $NEW_VERSION > version.txt
+        echo $NEW_VERSION > version_number.txt
     -
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
