@@ -15,7 +15,7 @@ jobs:
       uses: actions/checkout@v4
 
     - name: tests
-      run: dotnet test --verbosity normal
+      run: dotnet test src/Tests/Nop.Tests --verbosity normal
     
     -
         name: Login to Docker Hub
