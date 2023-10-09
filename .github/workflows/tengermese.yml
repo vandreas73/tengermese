@@ -7,23 +7,24 @@ on:
 jobs:
 
   calculate-version:
-    name: Calculate Version
     runs-on: ubuntu-latest
     outputs:
       majorMinorPatch: ${{ steps.gitversion.outputs.majorMinorPatch }} # To use an output in another job, you have to map it to a job output.
     steps:
       # gitversion/execute step omitted for brevity
-      - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0
-        with:
-            versionSpec: '5.x'
+      #- name: Install GitVersion
+      #  uses: gittools/actions/gitversion/setup@v0
+      #  with:
+      #      versionSpec: '5.x'
 
+      - name: GitTools
+        uses: GitTools/actions@v0.10.2
+            
       - name: Determine Version
         id: gitversion
-        uses: gittools/actions/gitversion/execute@v0
+        uses: GitTools/actions@v0.10.2/gitversion/execute@v0
 
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -34,6 +35,7 @@ jobs:
       run: dotnet test src/Tests/Nop.Tests --verbosity normal
 
   deploy:
+    needs: [calculate-version, build]
     runs-on: ubuntu-latest
     steps:
     -
