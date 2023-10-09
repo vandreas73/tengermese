@@ -12,19 +12,17 @@ jobs:
       majorMinorPatch: ${{ steps.gitversion.outputs.majorMinorPatch }} # To use an output in another job, you have to map it to a job output.
     steps:
       # gitversion/execute step omitted for brevity
-      #- name: Install GitVersion
-      #  uses: gittools/actions/gitversion/setup@v0
-      #  with:
-      #      versionSpec: '5.x'
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v0.10.2
+        with:
+            versionSpec: '5.x'
 
-      - name: GitTools
-        uses: GitTools/actions@v0.10.2
-            
       - name: Determine Version
         id: gitversion
-        uses: GitTools/actions@v0.10.2/gitversion/execute@v0
+        uses: gittools/actions/gitversion/execute@v0.10.2
 
   build:
+    needs: calculate-version
     runs-on: ubuntu-latest
 
     steps:
