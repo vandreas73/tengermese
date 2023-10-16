@@ -398,6 +398,9 @@ label, label + * {
 .captcha-box {
   text-align: center;
   line-height: 0; /*firefox line-height bug fix*/
+  margin-left: 2%;
+  margin-bottom: 2%;
+  margin-right: 2%;
 }
 
 .captcha-box > div {
@@ -408,6 +411,8 @@ label, label + * {
 .captcha-box input {
   height: auto;
 }
+
+
 
 
 /*********** GLOBAL TABLES ***********/
