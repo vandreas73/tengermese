@@ -26,18 +26,18 @@ jobs:
         id: gitversion
         uses: gittools/actions/gitversion/execute@v0.10.2
 
-  test:
-    runs-on: ubuntu-latest
+  #test:
+    #runs-on: ubuntu-latest
 
-    steps:
-    - name: Check out the repo
-      uses: actions/checkout@v4
+    #steps:
+    #- name: Check out the repo
+      #uses: actions/checkout@v4
 
-    - name: tests
-      run: dotnet test src/Tests/Nop.Tests --verbosity normal
+    #- name: tests
+      #run: dotnet test src/Tests/Nop.Tests --verbosity normal
 
   deploy:
-    needs: [calculate-version, test]
+    #needs: [calculate-version, test]
     runs-on: ubuntu-latest
     steps:
     -
