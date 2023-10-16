@@ -68,8 +68,8 @@
                                             <div class="address-list-page">
                                                 @if (item.Id != Model.SelectedBillingAddress)
                                                 {
-                                                    <button id="edit-button-@(item.Id)" type="button" class="button-2 edit-address-button primary-btn" onclick="CheckoutShipping.editAddress('@(storeLocation)checkout/GetAddressById/', @(item.Id), '@T("Checkout.EditAddress")'); return false;"><span>@T("Common.Edit")</span></button>
-                                                    <button id="delete-button-@(item.Id)" type="button" class="button-2 delete-address-button primary-btn" onclick="CheckoutShipping.deleteEditAddress('@(storeLocation)checkout/DeleteEditShippingAddress/', @(item.Id)); return false;"><span>@T("Common.Delete")</span></button>
+                                                    <button id="edit-button-@(item.Id)" type="button" class="button-2 edit-address-button primary-btn" onclick="CheckoutShipping.editAddress('/checkout/GetAddressById/', @(item.Id), '@T("Checkout.EditAddress")'); return false;"><span>@T("Common.Edit")</span></button>
+                                                    <button id="delete-button-@(item.Id)" type="button" class="button-2 delete-address-button primary-btn" onclick="CheckoutShipping.deleteEditAddress('/checkout/DeleteEditShippingAddress/', @(item.Id)); return false;"><span>@T("Common.Delete")</span></button>
                                                 }
                                             </div>
                                             <ul class="address-box">
@@ -200,7 +200,7 @@
                     </div>
                 }
                 <div class="buttons">
-                    <button id="shippingaddress-save-button" type="button" class="button-1 primary-btn" style="display: none" onclick="CheckoutShipping.saveEditAddress('@(storeLocation)checkout/SaveEditShippingAddress/'); return false;"><span>@T("Common.Save")</span></button>
+                    <button id="shippingaddress-save-button" type="button" class="button-1 primary-btn" style="display: none" onclick="CheckoutShipping.saveEditAddress('/checkout/SaveEditShippingAddress/'); return false;"><span>@T("Common.Save")</span></button>
 
                     <button id="shippingaddress-cancel-button" type="button" class="button-1 primary-btn" style="display: none" onclick="setLocation('@Url.RouteUrl("CheckoutShippingAddress")')"><span>@T("Common.Cancel")</span></button>
 

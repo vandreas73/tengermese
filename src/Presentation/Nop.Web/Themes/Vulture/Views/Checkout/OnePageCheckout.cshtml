@@ -70,11 +70,11 @@
                             }
                         </script>
                         <div class="buttons" id="billing-buttons-container">
-                            <button id="edit-billing-address-button" type="button" class="button-1 primary-btn" style="display: none" onclick="Billing.editAddress('@(storeLocation)checkout/GetAddressById/'); return false;"><span>@T("Common.Edit")</span></button>
+                            <button id="edit-billing-address-button" type="button" class="button-1 primary-btn" style="display: none" onclick="Billing.editAddress('/checkout/GetAddressById/'); return false;"><span>@T("Common.Edit")</span></button>
 
-                            <button id="delete-billing-address-button" type="button" class="button-1 primary-btn" style="display: none" onclick="Billing.deleteAddress('@(storeLocation)checkout/DeleteEditBillingAddress/'); return false;"><span>@T("Common.Delete")</span></button>
+                            <button id="delete-billing-address-button" type="button" class="button-1 primary-btn" style="display: none" onclick="Billing.deleteAddress('/checkout/DeleteEditBillingAddress/'); return false;"><span>@T("Common.Delete")</span></button>
 
-                            <button id="save-billing-address-button" type="button" class="button-1 primary-btn" style="display: none" onclick="Billing.saveEditAddress('@(storeLocation)checkout/SaveEditBillingAddress/'); return false;"><span>@T("Common.Save")</span></button>
+                            <button id="save-billing-address-button" type="button" class="button-1 primary-btn" style="display: none" onclick="Billing.saveEditAddress('/checkout/SaveEditBillingAddress/'); return false;"><span>@T("Common.Save")</span></button>
 
                             <button type="button" name="save" class="button-1 new-address-next-step-button primary-btn" onclick="Billing.save()"><span>@T("Common.Continue")</span></button>
 
@@ -96,7 +96,7 @@
                                 </div>
                             </form>
                             <script asp-location="Footer">
-                                Shipping.init('#co-shipping-form', '@(storeLocation)checkout/OpcSaveShipping/');
+                                Shipping.init('#co-shipping-form', '/checkout/OpcSaveShipping/');
                                 if ($("#shipping-address-select").length > 0) {
                                     Shipping.newAddress($('#shipping-address-select').val(), @Model.BillingAddress.BillingNewAddress.Id);
                                 }
@@ -108,11 +108,11 @@
                                         <a class="primary-btn" href="#" onclick="Checkout.back(); return false; "><span>@T("Common.Back")</span></a>
                                     </p>
                                 }
-                                <button id="edit-shipping-address-button" type="button" class="button-1 primary-btn" style="display: none" onclick="Shipping.editAddress('@(storeLocation)checkout/GetAddressById/'); return false;"><span>@T("Common.Edit")</span></button>
+                                <button id="edit-shipping-address-button" type="button" class="button-1 primary-btn" style="display: none" onclick="Shipping.editAddress('/checkout/GetAddressById/'); return false;"><span>@T("Common.Edit")</span></button>
 
-                                <button id="delete-shipping-address-button" type="button" class="button-1 primary-btn" style="display: none" onclick="Shipping.deleteAddress('@(storeLocation)checkout/DeleteEditShippingAddress/'); return false;"><span>@T("Common.Delete")</span></button>
+                                <button id="delete-shipping-address-button" type="button" class="button-1 primary-btn" style="display: none" onclick="Shipping.deleteAddress('/checkout/DeleteEditShippingAddress/'); return false;"><span>@T("Common.Delete")</span></button>
 
-                                <button id="save-shipping-address-button" type="button" class="button-1 primary-btn" style="display: none" onclick="Shipping.saveEditAddress('@(storeLocation)checkout/SaveEditShippingAddress/'); return false;"><span>@T("Common.Save")</span></button>
+                                <button id="save-shipping-address-button" type="button" class="button-1 primary-btn" style="display: none" onclick="Shipping.saveEditAddress('/checkout/SaveEditShippingAddress/'); return false;"><span>@T("Common.Save")</span></button>
 
                                 <button type="button" class="button-1 new-address-next-step-button primary-btn" onclick="Shipping.save()"><span>@T("Common.Continue")</span></button>
                                 <span id="shipping-please-wait" class="please-wait" style="display: none;"> @T("Common.LoadingNextStep")</span>
@@ -134,7 +134,7 @@
                                         NotAvailableMethodsError: "@T("ShippingMethod.NotAvailableMethodsError")",
                                         SpecifyMethodError: "@T("ShippingMethod.SpecifyMethodError")"
                                     };
-                                    ShippingMethod.init('#co-shipping-method-form', '@(storeLocation)checkout/OpcSaveShippingMethod/', localized_data);
+                                    ShippingMethod.init('#co-shipping-method-form', '/checkout/OpcSaveShippingMethod/', localized_data);
                                 </script>
                                 <div class="buttons" id="shipping-method-buttons-container">
                                     <p class="back-link">
@@ -163,7 +163,7 @@
                                 NotAvailableMethodsError: "@T("PaymentMethod.NotAvailableMethodsError")",
                                 SpecifyMethodError: "@T("PaymentMethod.SpecifyMethodError")"
                             };
-                            PaymentMethod.init('#co-payment-method-form', '@(storeLocation)checkout/OpcSavePaymentMethod/', localized_data);
+                            PaymentMethod.init('#co-payment-method-form', '/checkout/OpcSavePaymentMethod/', localized_data);
                         </script>
                         <div class="buttons" id="payment-method-buttons-container">
                             <p class="back-link">
@@ -186,7 +186,7 @@
                             </div>
                         </form>
                         <script asp-location="Footer">
-                            PaymentInfo.init('#co-payment-info-form', '@(storeLocation)checkout/OpcSavePaymentInfo/');
+                            PaymentInfo.init('#co-payment-info-form', '/checkout/OpcSavePaymentInfo/');
                         </script>
                         <div class="buttons" id="payment-info-buttons-container">
                             <p class="back-link">
@@ -207,7 +207,7 @@
                             @*confirm order content will be loaded here*@
                         </div>
                         <script asp-location="Footer">
-                            ConfirmOrder.init('@(storeLocation)checkout/OpcConfirmOrder/', '@Url.RouteUrl("CheckoutCompleted")', @Model.DisplayCaptcha.ToString().ToLowerInvariant(), @Model.IsReCaptchaV3.ToString().ToLowerInvariant(), '@Model.ReCaptchaPublicKey');
+                            ConfirmOrder.init('/checkout/OpcConfirmOrder/', '@Url.RouteUrl("CheckoutCompleted")', @Model.DisplayCaptcha.ToString().ToLowerInvariant(), @Model.IsReCaptchaV3.ToString().ToLowerInvariant(), '@Model.ReCaptchaPublicKey');
                         </script>
                         <div class="buttons" id="confirm-order-buttons-container">
                             <p class="back-link">
@@ -224,7 +224,7 @@
         <script asp-location="Footer">
             Accordion.init('checkout-steps', '.step-title', true);
             Accordion.openSection('#opc-billing');
-            Checkout.init('@(storeLocation)cart/');
+            Checkout.init('/cart/');
             if (Billing.disableBillingAddressCheckoutStep) {
                 Accordion.hideSection('#opc-billing');
                 Billing.save();
