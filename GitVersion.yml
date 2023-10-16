@@ -1,7 +1,13 @@
 branches:
-  pull-request:
-    mode: ContinuousDeployment
-    tag: PullRequest
-    increment: Inherit
-    track-merge-target: true
-    tag-number-pattern: '[/-](?<number>\d+)[-/]'
+  main:
+    mode: ContinuousDelivery
+    tag: ''
+    increment: Patch
+    prevent-increment-of-merged-branch-version: false
+    track-merge-target: false
+  master:
+    mode: ContinuousDelivery
+    tag: ''
+    increment: Patch
+    prevent-increment-of-merged-branch-version: false
+    track-merge-target: false
