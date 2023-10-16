@@ -25,7 +25,7 @@
             {
                 if (Model.PagingFilteringContext.GetParsedMonth().HasValue)
                 {
-                    @string.Format(T("Blog.FilteredByMonth").Text, Model.PagingFilteringContext.GetParsedMonth().Value.Year, Model.PagingFilteringContext.GetParsedMonth().Value.ToString("MMMM"))
+                    @string.Format(T("Blog.FilteredByMonth").Text, Model.PagingFilteringContext.GetParsedMonth().Value.Year, T(Model.PagingFilteringContext.GetParsedMonth().Value.ToString("MMMM")))
                 }
                 else
                 {
