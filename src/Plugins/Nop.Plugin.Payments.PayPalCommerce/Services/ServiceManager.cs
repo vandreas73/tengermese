@@ -291,7 +291,7 @@ namespace Nop.Plugin.Payments.PayPalCommerce.Services
                     ["debug"] = false.ToString().ToLowerInvariant(),
                     ["components"] = "",
                     //["buyer-country"] = null, //available in the sandbox only
-                    //["locale"] = null, //PayPal auto detects this
+                    ["locale"] = "hu_HU", //PayPal auto detects this
                 };
                 if (!string.IsNullOrEmpty(settings.DisabledFunding))
                     parameters["disable-funding"] = settings.DisabledFunding;
