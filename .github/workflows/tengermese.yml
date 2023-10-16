@@ -37,7 +37,7 @@ jobs:
       #run: dotnet test src/Tests/Nop.Tests --verbosity normal
 
   deploy:
-    #needs: [calculate-version, test]
+    needs: [calculate-version ]
     runs-on: ubuntu-latest
     steps:
     -
