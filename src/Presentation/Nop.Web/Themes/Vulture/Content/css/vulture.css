@@ -584,7 +584,11 @@ input.vult-input-effect:focus {
 
 
 .section-width{
-    padding: 0 250px;
+    padding: 0 70px;
+}
+
+.section-width.topic-page {
+  padding: 0 250px;
 }
 .vult-mobile-logo{
     display: none;
@@ -602,7 +606,7 @@ input.vult-input-effect:focus {
     box-shadow: 0px 0px 18px 1px rgba(0,0,0,0.1);
 }
 .header-menu {
-    width: calc(100% - 26%);
+    width: calc(100% - 20%);
     display: inline-block;
     text-align: center;
 }

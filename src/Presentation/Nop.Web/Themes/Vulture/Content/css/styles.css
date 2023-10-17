@@ -934,7 +934,7 @@ label, label + * {
 }
 
 .header-upper {
-  width: 26%;
+  width: 20%;
   display: inline-block;
   vertical-align: top;
   position: relative;
@@ -1051,11 +1051,11 @@ label, label + * {
     display: flex;
     width: 100%;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 }
 .header-logo{
-    width: 200px;
+    width: 80px;
 }
 
 .header-logo a {
@@ -2027,7 +2027,16 @@ label, label + * {
 .sub-category-grid,
 .manufacturer-grid,
 .vendor-grid {
-  margin: 30px 5%;
+  margin: 30px 10%;
+}
+
+@media all and (max-width: 700px){
+  .home-page-category-grid,
+  .sub-category-grid,
+  .manufacturer-grid,
+  .vendor-grid {
+    margin: 30px 5%;
+  } 
 }
 
 .home-page-category-grid .title,
@@ -7340,7 +7349,7 @@ pre {
     }
 
     .header-nav-setting {
-        width: calc(100% - 200px);
+        width: calc(100% - 80px);
     }
 
   /*** GLOBAL STYLES ***/
@@ -7459,7 +7468,7 @@ pre {
 
 
   .header-logo {
-    width: 200px;
+    width: 80px;
     text-align: left;
   }
 

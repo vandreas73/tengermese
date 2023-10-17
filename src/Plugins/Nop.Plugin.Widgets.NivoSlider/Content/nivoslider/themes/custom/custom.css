@@ -108,7 +108,7 @@
 
 @media all and (max-width: 1000px) {
 .theme-custom {
-	max-width: 600px;
+	/*max-width: 600px;*/
 	margin: -20px auto 40px;
 }
 .theme-custom .nivo-directionNav {
