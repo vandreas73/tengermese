@@ -1178,7 +1178,7 @@ label, label + * {
   font-size: 20px;
   color: #fff;
   cursor: pointer;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
 }
 
 .footer-block .title strong {
@@ -7517,7 +7517,7 @@ pre {
     font-weight: 500;
     color: #222;
     cursor: pointer;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
   }
 
     .header-menu > ul > li > a:hover,

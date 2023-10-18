@@ -102,7 +102,7 @@
     padding: 10px 40px;
     display: inline-block;
     border-radius: 5px;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
     position: relative;
     z-index: 9;
   }
@@ -997,7 +997,7 @@ span.currency-symbol {
     font-weight: 600;
     margin-bottom: 30px;
     position: relative;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
   }
 
 .category_slider .item-box {
@@ -1315,7 +1315,7 @@ button.owl-next {
   .product-sorting span {
     margin-right: 8px;
     display: block;
-    text-transform: capitalize;
+    /*text-transform: capitalize;*/
   }
 
   .product-sorting .select2-container {
@@ -1713,7 +1713,7 @@ ul.tabs {
   font-weight: 600;
   text-align: center;
   margin-bottom: 16px;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
 }
 
 .vult-form {
@@ -1960,7 +1960,7 @@ ul.tabs {
   display: inline-block;
   border-radius: 5px;
   padding: 6px 12px;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
 }
 
 .vult-order-status.pending .vult-order-status-info,
@@ -2126,7 +2126,7 @@ ul.tabs {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 20px;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
 }
 
 .vult-order-summry-data {
