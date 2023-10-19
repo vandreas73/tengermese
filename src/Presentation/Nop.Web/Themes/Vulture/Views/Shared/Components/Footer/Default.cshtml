@@ -162,9 +162,9 @@
                 e = document.documentElement || document.body;
             }
             var result = { width: e[a + 'Width'], height: e[a + 'Height'] };
-            if (result.width < 1001) {
+            // if (result.width < 1001) {
                 $(this).siblings('.listbox').slideToggle('slow');
-            }
+            // }
         });
     });
 </script>
