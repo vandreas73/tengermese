@@ -191,8 +191,8 @@ label, label + * {
 }
 
 .side-2 {
-    background: #f4f4f4;
-    padding: 20px;
+  /*background: #f4f4f4; if side-2 is empty, there would be a small gray box*/
+  padding: 20px;
 }
 
 .side-2 .block:last-child{

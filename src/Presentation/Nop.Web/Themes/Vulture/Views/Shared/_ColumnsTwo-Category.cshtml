@@ -33,6 +33,11 @@
 
 <div class="section-width">
     <div class="section-padding">
+        <div class="center-2 generalSideRight">
+            @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.MainColumnBefore })
+            @RenderBody()
+            @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.MainColumnAfter })
+        </div>
         <div class="side-2 generalLeftSide" style="background:inherit">
             @if (IsSectionDefined("left"))
             {
@@ -53,11 +58,6 @@
                 @await Component.InvokeAsync(typeof(PollBlockViewComponent), new { systemKeyword = "LeftColumnPoll" })
                 @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.LeftSideColumnAfter })
             }
-        </div>
-        <div class="center-2 generalSideRight">
-            @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.MainColumnBefore })
-            @RenderBody()
-            @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.MainColumnAfter })
         </div>
     </div>
 </div>

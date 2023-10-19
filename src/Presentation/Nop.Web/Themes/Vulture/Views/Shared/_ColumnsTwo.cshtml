@@ -34,7 +34,12 @@
 <div class="section-width">
     @await RenderSectionAsync("VultSubcategory", false)
     @await RenderSectionAsync("VultCatalogFilter", false)
-    <div class="side-2 generalLeftSide" style="background:inherit">
+    <div class="center-2 generalSideRight">
+        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.MainColumnBefore })
+        @RenderBody()
+        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.MainColumnAfter })
+    </div>
+    <div class="side-2 generalLeftSide">
         @if (IsSectionDefined("left"))
         {
             @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.LeftSideColumnBefore })
@@ -49,15 +54,10 @@
             @* @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.LeftSideColumnAfterCategoryNavigation }) *@
             @await Component.InvokeAsync(typeof(ManufacturerNavigationViewComponent), new { currentManufacturerId = currentManufacturerId })
             @await Component.InvokeAsync(typeof(VendorNavigationViewComponent))
-            @* @await Component.InvokeAsync(typeof(RecentlyViewedProductsBlockViewComponent), new { productThumbPictureSize = 64 }) *@
+            @await Component.InvokeAsync(typeof(RecentlyViewedProductsBlockViewComponent), new { productThumbPictureSize = 64 })
             @await Component.InvokeAsync(typeof(PopularProductTagsViewComponent))
             @await Component.InvokeAsync(typeof(PollBlockViewComponent), new { systemKeyword = "LeftColumnPoll" })
             @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.LeftSideColumnAfter })
         }
-    </div>
-    <div class="center-2 generalSideRight">
-        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.MainColumnBefore })
-        @RenderBody()
-        @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.MainColumnAfter })
     </div>
 </div>
