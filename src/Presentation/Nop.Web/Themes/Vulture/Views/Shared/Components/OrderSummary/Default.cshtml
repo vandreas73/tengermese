@@ -539,6 +539,9 @@
         <div class="no-data">
             <span class="Vult-empty-cart"></span>
             @T("ShoppingCart.CartIsEmpty")
+			<br>
+			@T("ShoppingCart.Mini.NoItems.GoTo")
+			<b><a href='/webshop'>Webshop</a></b>
         </div>
     }
     @await Component.InvokeAsync(typeof(WidgetViewComponent), new { widgetZone = PublicWidgetZones.OrderSummaryContentAfter, additionalData = Model })

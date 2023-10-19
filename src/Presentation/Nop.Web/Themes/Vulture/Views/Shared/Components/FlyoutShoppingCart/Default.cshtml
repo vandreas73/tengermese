@@ -13,6 +13,9 @@
                 @if (Model.TotalProducts == 0)
                 {
                     @T("ShoppingCart.Mini.NoItems")
+					<br>
+					@T("ShoppingCart.Mini.NoItems.GoTo")
+					<a href='/webshop'>Webshop</a>
                 }
                 else
                 {

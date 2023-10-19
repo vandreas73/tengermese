@@ -277,6 +277,9 @@
             {
                 <div class="no-data">
                     @T("Wishlist.CartIsEmpty")
+					<br>
+					@T("ShoppingCart.Mini.NoItems.GoTo")
+					<b><a href='/webshop'>Webshop</a></b>
                 </div>
             }
             @if (Model.IsEditable && Model.Items.Count > 0)
