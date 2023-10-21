@@ -100,6 +100,7 @@ WORKDIR /app
 COPY --from=build /app/published .
 
 COPY /src/Presentation/Nop.Web/plugins.json /app/App_Data/plugins.json
+COPY /src/Presentation/Nop.Web/wwwroot/images/uploaded /images/uploaded
 
 EXPOSE 80
                             
