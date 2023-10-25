@@ -1,0 +1,39 @@
+﻿@model ConfigurationModel
+
+@{
+	Layout = "_ConfigurePlugin";
+}
+
+@await Component.InvokeAsync(typeof(StoreScopeConfigurationViewComponent))
+
+<form asp-controller="BillingoInvoicing" asp-action="Configure" method="post">
+	<div class="cards-group">
+		<div class="card card-default card-outline card-info" id="pnlOnboarding">
+			<div class="card-header">
+				@T("Plugins.Misc.BillingoInvoicing.Title")
+			</div>
+			<div class="card-body">
+				<p>
+					Billingo API key<br />
+					<em>Read more about <a href="https://www.paypal.com/us/webapps/mpp/security/seller-protection" target="_blank">Seller Protection Policy</a>.</em>
+				</p>
+				<hr />
+				<div class="form-group row">
+					<div class="col-md-3">
+					@*<nop-override-store-checkbox asp-for="ClientId_OverrideForStore" asp-input="ClientId" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />*@
+					<nop-label asp-for="ApiKey" />
+					</div>
+					<div class="col-md-9">
+						<nop-editor asp-for="ApiKey" asp-required="true" />
+						<span asp-validation-for="ApiKey"></span>
+					</div>
+				</div>
+				<div class="form-group row" id="pnlSave">
+					<div class="col-md-9 offset-md-3">
+						<button type="submit" name="save" class="btn btn-primary">@T("Admin.Common.Save")</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
