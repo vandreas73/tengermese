@@ -5,8 +5,13 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Nop.Core.Domain.Orders;
+using Nop.Services.Catalog;
+using Nop.Services.Common;
+using Nop.Services.Directory;
 using Nop.Services.Events;
+using Nop.Services.Orders;
 
 namespace Nop.Plugin.Misc.BillingoInvoicing.Services
 {
@@ -14,12 +19,24 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
     {
         private HttpClient _httpClient;
         private BillingoClientService _billingoService;
+        private readonly IOrderService _orderService;
+        private readonly IProductService _productService;
+        private readonly IAddressService _addressService;
+        private readonly ICountryService _countryService;
 
         public InvoiceGenerator(HttpClient httpClient,
-            BillingoClientService billingoClientService)
+            BillingoClientService billingoClientService,
+            IOrderService orderService,
+            IProductService productService,
+            IAddressService addressService,
+            ICountryService countryService)
         {
             _httpClient = httpClient;
             _billingoService = billingoClientService;
+            _orderService = orderService;
+            _productService = productService;
+            _addressService = addressService;
+            _countryService = countryService;
         }
 
         public async Task HandleEventAsync(OrderPaidEvent eventMessage)
@@ -28,47 +45,78 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
             if (eventMessage?.Order != null)
             {
                 Console.WriteLine("InvoiceGenerator HandleEventAsync order not null");
+
+                var orderItems = await _orderService.GetOrderItemsAsync(eventMessage.Order.Id);
+                var currentAddress = await _addressService.GetAddressByIdAsync(eventMessage.Order.BillingAddressId);
+                var currentCountry = (await _countryService.GetCountryByAddressAsync(currentAddress));
+                var partnersWithName = await _billingoService.ListPartnerAsync(1, 100, $"{currentAddress.LastName} {currentAddress.FirstName}");
+                Partner currentPartner = partnersWithName.Data.Where(partner => partner.Iban == eventMessage.Order.CardNumber
+                        && partner.Address.Country_code.ToString() == currentCountry.TwoLetterIsoCode
+                        && partner.Address.City == currentAddress.City
+                        && partner.Address.Post_code == currentAddress.ZipPostalCode
+                        && partner.Address.Address1 == currentAddress.Address1).FirstOrDefault();
+
+                if (currentPartner == null)
+                {
+                    var partner = new Partner()
+                    {
+                        Name = $"{currentAddress.LastName} {currentAddress.FirstName}",
+                        Address = new Address
+                        {
+                            Address1 = currentAddress.Address1,
+                            City = currentAddress.City,
+                            Country_code = currentCountry.TwoLetterIsoCode,
+                            Post_code = currentAddress.ZipPostalCode
+                        },
+                        Emails = new List<string>() { currentAddress.Email }
+                    };
+                    currentPartner = await _billingoService.CreatePartnerAsync(partner);
+                }
+
                 var document = new DocumentInsert()
                 {
-                    Partner_id = 1802491707,
+                    Partner_id = currentPartner.Id, //1802491707,
                     Block_id = 217127,
                     Bank_account_id = 179109,
-                    Type = DocumentInsertType.Invoice,
+                    Type = "invoice",
                     Fulfillment_date = DateTime.Now,
                     Due_date = DateTime.Now,
-                    Payment_method = PaymentMethod.Paypal,
-                    Language = DocumentLanguage.Hu,
-                    Currency = Currency.HUF,
+                    Payment_method = "paypal",
+                    Language = "hu",
+                    Currency = "HUF",
                     Conversion_rate = 1,
                     Electronic = false,
                     Paid = true,
-                    Items = new List<DocumentProductData>()
-                    {
-                        new DocumentProductData()
-                        {
-                            Name = "item name",
-                            Unit_price = (float)eventMessage.Order.OrderTotal,
-                            Unit_price_type = UnitPriceType.Gross,
-                            Quantity = 1,
-                            Unit = "db",
-                            Vat = "27%",
-                            Entitlement = Entitlement.AAM
-                        }
-                    },
+                    Items = new List<DocumentProductData>(),
                     Settings = new DocumentSettings()
                     {
                         Mediated_service = false,
                         Without_financial_fulfillment = false,
-                        Round = Round.One,
+                        Round = "one",
                         No_send_onlineszamla_by_user = true,
-                        Order_number = eventMessage.Order.OrderGuid.ToString(),
+                        Order_number = eventMessage.Order.Id.ToString(),
                         Place_id = 0,
                         Instant_payment = true,
-                        Selected_type = DocumentType.Invoice
+                        Selected_type = "invoice"
                     },
                 };
-                await _billingoService.CreateDocumentAsync(document);
-            }
+                foreach (var orderItem in orderItems)
+                {
+                    var product = await _productService.GetProductByIdAsync(orderItem.ProductId);
+                    var productData = new DocumentProductData()
+                    {
+                        Name = product.Name,
+                        Unit_price = (float)orderItem.UnitPriceInclTax,
+                        Unit_price_type = "gross",
+                        Quantity = orderItems.First().Quantity,
+                        Unit = "db",
+                        Vat = "27%",
+                        Entitlement = "AAM"
+                    };
+                    document.Items.Add(productData);
+                }
+            await _billingoService.CreateDocumentAsync(document);
         }
     }
+}
 }

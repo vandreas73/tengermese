@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -29,6 +30,39 @@ using Nop.Services.Configuration;
 namespace Nop.Plugin.Misc.BillingoInvoicing.Services
 {
     using System = global::System;
+
+    using System;
+    using System.Text.Json;
+    using System.Text.Json.Serialization;
+
+    //public class CamelCaseStringEnumConverter : JsonConverter<Enum>
+    //{
+    //    private readonly JsonNamingPolicy _namingPolicy = JsonNamingPolicy.CamelCase;
+
+    //    public override Enum Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    //    {
+    //        // Use the base behavior to read as string
+    //        string enumString = reader.GetString();
+
+    //        // Parse the string back to the enum type
+    //        if (Enum.TryParse(typeToConvert, enumString, ignoreCase: true, out var enumValue))
+    //        {
+    //            return (Enum)enumValue;
+    //        }
+
+    //        throw new JsonException($"Unable to parse \"{enumString}\" as enum of type {typeToConvert.Name}.");
+    //    }
+
+    //    public override void Write(Utf8JsonWriter writer, Enum value, JsonSerializerOptions options)
+    //    {
+    //        string original = value.ToString();
+    //        string converted = _namingPolicy.ConvertName(original);
+    //        writer.WriteStringValue(converted);
+    //    }
+    //}
+
+
+
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.20.0.0 (NJsonSchema v10.9.0.0 (Newtonsoft.Json v13.0.0.0))")]
     public partial class BillingoClientService
@@ -1989,9 +2023,7 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/documents");
 
             var client_ = _httpClient;
-            var storeId = await _storeContext.GetActiveStoreScopeConfigurationAsync();
-            var settings = await _settingService.LoadSettingAsync<BillingoInvoicingSettings>(storeId);
-            client_.DefaultRequestHeaders.Add("X-API-KEY", settings.ApiKey);
+            await AddApiKeyToHeader(client_);
             var disposeClient_ = false;
             try
             {
@@ -2124,6 +2156,14 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
                 if (disposeClient_)
                     client_.Dispose();
             }
+        }
+
+        private async Task AddApiKeyToHeader(HttpClient client_)
+        {
+            var storeId = await _storeContext.GetActiveStoreScopeConfigurationAsync();
+            var settings = await _settingService.LoadSettingAsync<BillingoInvoicingSettings>(storeId);
+            client_.DefaultRequestHeaders.Where(s => s.Key == "X-API-KEY").ToList().ForEach(f => client_.DefaultRequestHeaders.Remove(f.Key));
+            client_.DefaultRequestHeaders.Add("X-API-KEY", settings.ApiKey);
         }
 
         /// <summary>
@@ -5497,6 +5537,7 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
             urlBuilder_.Length--;
 
             var client_ = _httpClient;
+            await AddApiKeyToHeader(client_);
             var disposeClient_ = false;
             try
             {
@@ -8774,8 +8815,8 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-        public Country Country_code { get; set; }
+        //[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public string Country_code { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("post_code")]
 
@@ -9802,8 +9843,8 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
         [System.Text.Json.Serialization.JsonPropertyName("type")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-        public DiscountType Type { get; set; }
+        //[System.Text.Json.Serialization.JsonConverter(typeof(CamelCaseStringEnumConverter))]
+        public string Type { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("value")]
 
@@ -9857,8 +9898,8 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
         [System.Text.Json.Serialization.JsonPropertyName("type")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-        public DocumentType Type { get; set; }
+        //[System.Text.Json.Serialization.JsonConverter(typeof(CamelCaseStringEnumConverter))]
+        public string Type { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("cancelled")]
 
@@ -10177,8 +10218,8 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        //[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-        public DocumentInsertType Type { get; set; }
+        //[System.Text.Json.Serialization.JsonConverter(typeof(CamelCaseStringEnumConverter))]
+        public string Type { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("fulfillment_date")]
 
@@ -10198,22 +10239,22 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        //[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-        public PaymentMethod Payment_method { get; set; }
+        //[System.Text.Json.Serialization.JsonConverter(typeof(CamelCaseStringEnumConverter))]
+        public string Payment_method { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("language")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        //[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-        public DocumentLanguage Language { get; set; }
+        //[System.Text.Json.Serialization.JsonConverter(typeof(CamelCaseStringEnumConverter))]
+        public string Language { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("currency")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-        public Currency Currency { get; set; }
+        //[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public string Currency { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("conversion_rate")]
 
@@ -10327,8 +10368,8 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
         [System.Text.Json.Serialization.JsonPropertyName("vat")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-        public Vat Vat { get; set; }
+        //[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public string Vat { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("vat_amount")]
 
@@ -10604,8 +10645,8 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
         [System.Text.Json.Serialization.JsonPropertyName("tax_type")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-        public PartnerTaxType Tax_type { get; set; }
+        //[System.Text.Json.Serialization.JsonConverter(typeof(CamelCaseStringEnumConverter))]
+        public string Tax_type { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 
@@ -10637,8 +10678,8 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.Never)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        //[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-        public UnitPriceType Unit_price_type { get; set; }
+        //[System.Text.Json.Serialization.JsonConverter(typeof(CamelCaseStringEnumConverter))]
+        public string Unit_price_type { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("quantity")]
 
@@ -10666,8 +10707,8 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
         [System.Text.Json.Serialization.JsonPropertyName("entitlement")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-        public Entitlement Entitlement { get; set; }
+        //[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public string Entitlement { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 
@@ -10717,14 +10758,14 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
         [System.Text.Json.Serialization.JsonPropertyName("online_payment")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-        public OnlinePayment Online_payment { get; set; }
+        //[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public string Online_payment { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("round")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
-        //[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-        public Round Round { get; set; }
+        //[System.Text.Json.Serialization.JsonConverter(typeof(CamelCaseStringEnumConverter))]
+        public string Round { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("no_send_onlineszamla_by_user")]
 
@@ -10749,8 +10790,8 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
         [System.Text.Json.Serialization.JsonPropertyName("selected_type")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
-        //[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-        public DocumentType Selected_type { get; set; }
+        //[System.Text.Json.Serialization.JsonConverter(typeof(CamelCaseStringEnumConverter))]
+        public string Selected_type { get; set; }
 
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties;
 
@@ -12417,8 +12458,8 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
         [System.Text.Json.Serialization.JsonPropertyName("tax_type")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-        public PartnerTaxType Tax_type { get; set; }
+        //[System.Text.Json.Serialization.JsonConverter(typeof(CamelCaseStringEnumConverter))]
+        public string Tax_type { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("custom_billing_settings")]
 
@@ -12452,31 +12493,31 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
         [System.Text.Json.Serialization.JsonPropertyName("payment_method")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-        public PaymentMethod Payment_method { get; set; }
+        //[System.Text.Json.Serialization.JsonConverter(typeof(CamelCaseStringEnumConverter))]
+        public string Payment_method { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("document_form")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-        public DocumentForm Document_form { get; set; }
+        //[System.Text.Json.Serialization.JsonConverter(typeof(CamelCaseStringEnumConverter))]
+        public string Document_form { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("due_days")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
-        public int Due_days { get; set; }
+        public int? Due_days { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("document_currency")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-        public Currency Document_currency { get; set; }
+        //[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public string Document_currency { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("template_language_code")]
 
         [System.Text.Json.Serialization.JsonIgnore(Condition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingDefault)]
-        [System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
-        public DocumentLanguage Template_language_code { get; set; }
+        //[System.Text.Json.Serialization.JsonConverter(typeof(System.Text.Json.Serialization.JsonStringEnumConverter))]
+        public string Template_language_code { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("discount")]
 
