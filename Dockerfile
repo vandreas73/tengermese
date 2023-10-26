@@ -23,6 +23,8 @@ WORKDIR /src/Plugins/Nop.Plugin.ExternalAuth.Facebook
 RUN dotnet build Nop.Plugin.ExternalAuth.Facebook.csproj -c Release
 WORKDIR /src/Plugins/Nop.Plugin.Misc.Sendinblue
 RUN dotnet build Nop.Plugin.Misc.Sendinblue.csproj -c Release
+WORKDIR /src/Plugins/Nop.Plugin.Misc.BillingoInvoicing
+RUN dotnet build Nop.Plugin.Misc.BillingoInvoicing.csproj -c Release
 WORKDIR /src/Plugins/Nop.Plugin.Misc.WebApi.Frontend
 RUN dotnet build Nop.Plugin.Misc.WebApi.Frontend.csproj -c Release
 WORKDIR /src/Plugins/Nop.Plugin.Misc.Zettle

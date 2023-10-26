@@ -11,5 +11,6 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Models
     {
         public string ApiKey { get; set; }
         public int BlockId { get; set; }
+        public int ActiveStoreScopeConfiguration { get; set; }
     }
 }
