@@ -89,11 +89,8 @@
   "PluginNamesToInstall": [
     {
       "Item1": "Widgets.ImprovedSearch",
-      "Item2": "976c048a-1551-4f09-a778-3a73ee16a12c"
+      "Item2": "976c048a-1551-4f09-a778-3a73ee16a12c",
+      "Item3": "Misc.BillingoInvoicing"
     },
-    {
-      "SystemName": "Misc.BillingoInvoicing",
-      "Version": "1.00"
-    }
   ]
 }
