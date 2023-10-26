@@ -6,9 +6,11 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Spreadsheet;
+using Nop.Core;
 using Nop.Core.Domain.Orders;
 using Nop.Services.Catalog;
 using Nop.Services.Common;
+using Nop.Services.Configuration;
 using Nop.Services.Directory;
 using Nop.Services.Events;
 using Nop.Services.Orders;
@@ -23,13 +25,17 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
         private readonly IProductService _productService;
         private readonly IAddressService _addressService;
         private readonly ICountryService _countryService;
+        private readonly ISettingService _settingService;
+        private readonly IStoreContext _storeContext;
 
         public InvoiceGenerator(HttpClient httpClient,
             BillingoClientService billingoClientService,
             IOrderService orderService,
             IProductService productService,
             IAddressService addressService,
-            ICountryService countryService)
+            ICountryService countryService,
+            IStoreContext storeContext,
+            ISettingService settingService)
         {
             _httpClient = httpClient;
             _billingoService = billingoClientService;
@@ -37,6 +43,8 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
             _productService = productService;
             _addressService = addressService;
             _countryService = countryService;
+            _storeContext = storeContext;
+            _settingService = settingService;
         }
 
         public async Task HandleEventAsync(OrderPaidEvent eventMessage)
@@ -73,10 +81,13 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
                     currentPartner = await _billingoService.CreatePartnerAsync(partner);
                 }
 
+                var storeId = await _storeContext.GetActiveStoreScopeConfigurationAsync();
+                var settings = await _settingService.LoadSettingAsync<BillingoInvoicingSettings>(storeId);
+
                 var document = new DocumentInsert()
                 {
                     Partner_id = currentPartner.Id, //1802491707,
-                    Block_id = 217127,
+                    Block_id = settings.BlockId, //217127,
                     Bank_account_id = 179109,
                     Type = "invoice",
                     Fulfillment_date = DateTime.Now,
@@ -106,7 +117,7 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
                     var productData = new DocumentProductData()
                     {
                         Name = product.Name,
-                        Unit_price = (float)orderItem.UnitPriceInclTax,
+                        Unit_price = (float)orderItem.PriceInclTax,
                         Unit_price_type = "gross",
                         Quantity = orderItems.First().Quantity,
                         Unit = "db",
@@ -115,8 +126,13 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
                     };
                     document.Items.Add(productData);
                 }
-            await _billingoService.CreateDocumentAsync(document);
+                var invoice = await _billingoService.CreateDocumentAsync(document);
+
+                await _billingoService.SendDocumentAsync(invoice.Id, new SendDocument
+                {
+                    Emails = new List<string>() { currentAddress.Email },
+                });
+            }
         }
     }
-}
 }

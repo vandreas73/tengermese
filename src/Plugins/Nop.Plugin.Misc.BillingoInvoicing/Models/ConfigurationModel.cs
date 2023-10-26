@@ -10,5 +10,6 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Models
     public record ConfigurationModel : BaseNopModel
     {
         public string ApiKey { get; set; }
+        public int BlockId { get; set; }
     }
 }

@@ -10,5 +10,6 @@ namespace Nop.Plugin.Misc.BillingoInvoicing
     public class BillingoInvoicingSettings : ISettings
     {
         public string ApiKey { get; set; }
+        public int BlockId { get; set; }
     }
 }

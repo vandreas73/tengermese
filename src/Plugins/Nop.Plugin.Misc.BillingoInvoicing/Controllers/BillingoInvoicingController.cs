@@ -47,7 +47,8 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Controllers
 
             var model = new ConfigurationModel()
             {
-                ApiKey = settings.ApiKey
+                ApiKey = settings.ApiKey,
+                BlockId = settings.BlockId
             };
 
             return View("~/Plugins/Misc.BillingoInvoicing/Views/Configure.cshtml", model);
@@ -65,8 +66,10 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Controllers
 
             //set new settings values
             settings.ApiKey = model.ApiKey;
+            settings.BlockId = model.BlockId;
 
             await _settingService.SaveSettingOverridablePerStoreAsync(settings, setting => setting.ApiKey, true, storeId, false);
+            await _settingService.SaveSettingOverridablePerStoreAsync(settings, setting => setting.BlockId, true, storeId, false);
 
             await _settingService.ClearCacheAsync();
 
