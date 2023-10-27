@@ -52,10 +52,6 @@
       "Version": "2.36"
     },
     {
-      "SystemName": "Shipping.UPS",
-      "Version": "1.71"
-    },
-    {
       "SystemName": "Tax.Avalara",
       "Version": "2.68.1"
     },
@@ -82,15 +78,17 @@
     {
       "SystemName": "ExternalAuth.Facebook",
       "Version": "1.80"
+    },
+    {
+      "SystemName": "Widgets.ImprovedSearch",
+      "Version": "1.00"
+    },
+    {
+      "SystemName": "Misc.BillingoInvoicing",
+      "Version": "1.00"
     }
   ],
   "PluginNamesToUninstall": [],
   "PluginNamesToDelete": [],
-  "PluginNamesToInstall": [
-    {
-      "Item1": "Misc.BillingoInvoicing",
-      "Item2": "Widgets.ImprovedSearch",
-      "Item3": "976c048a-1551-4f09-a778-3a73ee16a12c"
-    },
-  ]
+  "PluginNamesToInstall": []
 }
