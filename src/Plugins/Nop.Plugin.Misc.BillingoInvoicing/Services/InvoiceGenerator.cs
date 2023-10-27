@@ -119,7 +119,7 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
                         Name = product.Name,
                         Unit_price = (float)orderItem.UnitPriceInclTax,
                         Unit_price_type = "gross",
-                        Quantity = orderItems.First().Quantity,
+                        Quantity = orderItem.Quantity,
                         Unit = "db",
                         Vat = "27%",
                         Entitlement = "AAM"
