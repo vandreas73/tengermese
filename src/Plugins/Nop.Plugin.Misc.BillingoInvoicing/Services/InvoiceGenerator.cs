@@ -117,7 +117,7 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
                     var productData = new DocumentProductData()
                     {
                         Name = product.Name,
-                        Unit_price = (float)orderItem.PriceInclTax,
+                        Unit_price = (float)orderItem.UnitPriceInclTax,
                         Unit_price_type = "gross",
                         Quantity = orderItems.First().Quantity,
                         Unit = "db",
