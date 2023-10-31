@@ -97,12 +97,25 @@ RUN apk add tzdata --no-cache
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod 755 /entrypoint.sh
 
+COPY entrypoint.sh ./
+
+# Start and enable SSH
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends dialog \
+    && apt-get install -y --no-install-recommends openssh-server \
+    && echo "root:Docker!" | chpasswd \
+    && chmod u+x ./entrypoint.sh
+COPY sshd_config /etc/ssh/
+
+EXPOSE 8000 2222
+
+ENTRYPOINT [ "./entrypoint.sh" ]
+
 WORKDIR /app
 
 COPY --from=build /app/published .
 
 COPY /src/Presentation/Nop.Web/plugins.json /app/App_Data/plugins.json
-COPY /src/Presentation/Nop.Web/wwwroot/images/uploaded /app/images/uploaded
 
 EXPOSE 80
                             
