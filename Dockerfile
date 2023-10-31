@@ -103,7 +103,7 @@ COPY --from=build /app/published .
 
 COPY /src/Presentation/Nop.Web/plugins.json /app/App_Data/plugins.json
 
-VOLUME /app/images/uploaded
+VOLUME /images/uploaded
 
 EXPOSE 80
                             
