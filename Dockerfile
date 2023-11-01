@@ -103,14 +103,8 @@ COPY --from=build /app/published .
 
 COPY /src/Presentation/Nop.Web/plugins.json /app/App_Data/plugins.json
 
-# Start and enable SSH
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends dialog \
-    && apt-get install -y --no-install-recommends openssh-server \
-    && echo "root:Docker!" | chpasswd \
-    && chmod u+x ./entrypoint.sh
-COPY sshd_config /etc/ssh/
+VOLUME /images/uploaded
 
-EXPOSE 80 2222
+EXPOSE 80
                             
 ENTRYPOINT "/entrypoint.sh"
