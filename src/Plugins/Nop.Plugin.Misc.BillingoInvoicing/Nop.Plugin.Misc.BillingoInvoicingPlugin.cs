@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Nop.Services.Cms;
 using Nop.Services.Configuration;
+using Nop.Services.Localization;
 using Nop.Services.Plugins;
 using Nop.Web.Framework.Infrastructure;
 
@@ -18,14 +19,17 @@ namespace Nop.Plugin.Misc.BillingoInvoicing
         private readonly ISettingService _settingService;
         private readonly IActionContextAccessor _actionContextAccessor;
         private readonly IUrlHelperFactory _urlHelperFactory;
+        private readonly ILocalizationService _localizationService;
 
         public CustomPlugin(ISettingService settingService,
             IActionContextAccessor actionContextAccessor,
-            IUrlHelperFactory urlHelperFactory)
+            IUrlHelperFactory urlHelperFactory,
+            ILocalizationService localizationService)
         {
             _settingService = settingService;
             _actionContextAccessor = actionContextAccessor;
             _urlHelperFactory = urlHelperFactory;
+            _localizationService = localizationService;
         }
 
         public override async Task InstallAsync()
@@ -36,7 +40,13 @@ namespace Nop.Plugin.Misc.BillingoInvoicing
                 ApiKey = "YOUR_API_KEY"
             });
 
-            await base.InstallAsync();
+            //locales
+            await _localizationService.AddOrUpdateLocaleResourceAsync(new Dictionary<string, string>
+            {
+                ["Plugins.Misc.BillingoInvoicing.Title"] = "Billingo számlázás",
+            });
+
+                await base.InstallAsync();
         }
 
         public override async Task UninstallAsync()
