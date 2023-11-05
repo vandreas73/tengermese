@@ -268,7 +268,13 @@ namespace Nop.Web.Framework.Infrastructure
 
             //roxy file manager
             services.AddScoped<IRoxyFilemanService, RoxyFilemanService>();
-            services.AddScoped<IRoxyFilemanFileProvider, RoxyFilemanFileProvider>();
+            if (appSettings.Get<AzureBlobConfig>().Enabled)
+            {
+                services.AddScoped<RoxyAzurePictureService, RoxyAzurePictureService>();
+                services.AddScoped<IRoxyFilemanFileProvider, RoxyFilemanAzureFileProvider>();
+            }
+            else
+                services.AddScoped<IRoxyFilemanFileProvider, RoxyFilemanFileProvider>();
 
             //installation service
             services.AddScoped<IInstallationService, InstallationService>();

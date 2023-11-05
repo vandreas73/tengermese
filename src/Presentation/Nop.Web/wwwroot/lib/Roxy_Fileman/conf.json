@@ -16,7 +16,7 @@
   "DATEFORMAT": "dd/MM/yyyy HH:mm",
   "OPEN_LAST_DIR": "yes",
   "INTEGRATION": "custom",
-  "RETURN_URL_PREFIX": "/images/uploaded/",
+  "RETURN_URL_PREFIX": "https://tengermesestorage.blob.core.windows.net/tengermese-storage-container/",
   "DIRLIST": "/Admin/RoxyFileman/DirectoriesList",
   "CREATEDIR": "/Admin/RoxyFileman/CreateDirectory",
   "DELETEDIR": "/Admin/RoxyFileman/DeleteDirectory",
