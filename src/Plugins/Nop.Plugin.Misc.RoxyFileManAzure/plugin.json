@@ -1,0 +1,11 @@
+﻿{
+  "Group": "Misc",
+  "FriendlyName": "RoxyFileMan Azure Blob storage",
+  "SystemName": "Misc.RoxyFileManAzure",
+  "Version": "1.00",
+  "SupportedVersions": [ "4.60" ],
+  "Author": "András Vesztergombi",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Misc.RoxyFileManAzure.dll",
+  "Description": ""
+}

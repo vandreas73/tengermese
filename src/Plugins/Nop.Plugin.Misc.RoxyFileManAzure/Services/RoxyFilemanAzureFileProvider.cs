@@ -11,9 +11,10 @@ using Newtonsoft.Json;
 using Nop.Core.Configuration;
 using Nop.Core.Domain.Media;
 using Nop.Core.Infrastructure;
+using Nop.Services.Media.RoxyFileman;
 using SkiaSharp;
 
-namespace Nop.Services.Media.RoxyFileman
+namespace Nop.Plugin.Misc.RoxyFileManAzure.Services
 {
     /// <summary>
     /// Looks up and manages uploaded files using the on-disk file system
@@ -242,29 +243,7 @@ namespace Nop.Services.Media.RoxyFileman
         /// </param>
         public virtual void DirectoryMove(string sourceDirName, string destDirName)
         {
-            if (destDirName.IndexOf(sourceDirName, StringComparison.InvariantCulture) == 0)
-                throw new RoxyFilemanException("E_CannotMoveDirToChild");
-
-            var sourceDirInfo = new DirectoryInfo(GetFullPath(sourceDirName));
-            if (!sourceDirInfo.Exists)
-                throw new RoxyFilemanException("E_MoveDirInvalisPath");
-
-            if (string.Equals(sourceDirInfo.FullName, Root, StringComparison.InvariantCultureIgnoreCase))
-                throw new RoxyFilemanException("E_MoveDir");
-
-            var newFullPath = Path.Combine(GetFullPath(destDirName), sourceDirInfo.Name);
-            var destinationDirInfo = new DirectoryInfo(newFullPath);
-            if (destinationDirInfo.Exists)
-                throw new RoxyFilemanException("E_DirAlreadyExists");
-
-            try
-            {
-                sourceDirInfo.MoveTo(destinationDirInfo.FullName);
-            }
-            catch
-            {
-                throw new RoxyFilemanException("E_MoveDir");
-            }
+            throw new RoxyFilemanException("E_MoveDir");
         }
 
         /// <summary>
@@ -366,27 +345,7 @@ namespace Nop.Services.Media.RoxyFileman
         /// <param name="rootDirectoryPath">Path to start directory</param>
         public virtual IEnumerable<RoxyDirectoryInfo> GetDirectories(string type, bool isRecursive = true, string rootDirectoryPath = "")
         {
-            foreach (var item in GetDirectoryContents(rootDirectoryPath))
-            {
-                if (item.IsDirectory)
-                {
-                    var dirInfo = new DirectoryInfo(item.PhysicalPath);
-
-                    yield return new RoxyDirectoryInfo(
-                        getRelativePath(item.Name),
-                        dirInfo.GetFiles().Count(x => isMatchType(x.Name)),
-                        dirInfo.GetDirectories().Length);
-                }
-
-                if (!isRecursive)
-                    break;
-
-                foreach (var subDir in GetDirectories(type, isRecursive, getRelativePath(item.Name)))
-                    yield return subDir;
-            }
-
-            string getRelativePath(string name) => Path.Combine(rootDirectoryPath, name);
-            bool isMatchType(string name) => string.IsNullOrEmpty(type) || GetFileType(name) == type;
+            return new List<RoxyDirectoryInfo>();
         }
 
         /// <summary>
@@ -409,24 +368,7 @@ namespace Nop.Services.Media.RoxyFileman
         /// <param name="destinationPath">The new path and name for the file</param>
         public void FileMove(string sourcePath, string destinationPath)
         {
-            var sourceFile = GetFileInfo(sourcePath);
-
-            if (!sourceFile.Exists)
-                throw new RoxyFilemanException("E_MoveFileInvalisPath");
-
-            var destinationFile = GetFileInfo(destinationPath);
-            if (destinationFile.Exists)
-                throw new RoxyFilemanException("E_MoveFileAlreadyExists");
-
-            try
-            {
-                new FileInfo(sourceFile.PhysicalPath)
-                    .MoveTo(GetFullPath(destinationPath));
-            }
-            catch
-            {
-                throw new RoxyFilemanException("E_MoveFile");
-            }
+            throw new RoxyFilemanException("E_MoveFile");
         }
 
         /// <summary>
@@ -436,38 +378,7 @@ namespace Nop.Services.Media.RoxyFileman
         /// <param name="destinationPath">Path to the destination directory</param>
         public virtual void CopyDirectory(string sourcePath, string destinationPath)
         {
-            var sourceDirInfo = new DirectoryInfo(GetFullPath(sourcePath));
-            if (!sourceDirInfo.Exists)
-                throw new RoxyFilemanException("E_CopyDirInvalidPath");
-
-            var newPath = Path.Combine(GetFullPath(destinationPath), sourceDirInfo.Name);
-            var destinationDirInfo = new DirectoryInfo(newPath);
-
-            if (destinationDirInfo.Exists)
-                throw new RoxyFilemanException("E_DirAlreadyExists");
-
-            try
-            {
-                destinationDirInfo.Create();
-
-                foreach (var file in sourceDirInfo.GetFiles())
-                {
-                    var newFile = GetFileInfo(Path.Combine(destinationPath, file.Name));
-                    if (!newFile.Exists)
-                        file.CopyTo(Path.Combine(destinationDirInfo.FullName, file.Name));
-                }
-
-                foreach (var directory in sourceDirInfo.GetDirectories())
-                {
-                    var destinationSubPath = Path.Combine(destinationPath, sourceDirInfo.Name, directory.Name);
-                    var sourceSubPath = Path.Combine(sourcePath, directory.Name);
-                    CopyDirectory(sourceSubPath, destinationSubPath);
-                }
-            }
-            catch
-            {
-                throw new RoxyFilemanException("E_CopyFile");
-            }
+            throw new RoxyFilemanException("E_CopyFile");
         }
 
         /// <summary>
@@ -478,15 +389,7 @@ namespace Nop.Services.Media.RoxyFileman
         /// <returns>A task that represents the asynchronous operation</returns>
         public virtual void RenameDirectory(string sourcePath, string newName)
         {
-            try
-            {
-                var destinationPath = Path.Combine(Path.GetDirectoryName(sourcePath), newName);
-                DirectoryMove(sourcePath, destinationPath);
-            }
-            catch (Exception ex)
-            {
-                throw new RoxyFilemanException("E_RenameDir", ex);
-            }
+            throw new RoxyFilemanException("E_RenameDir");
         }
 
         /// <summary>
@@ -497,15 +400,7 @@ namespace Nop.Services.Media.RoxyFileman
         /// <returns>A task that represents the asynchronous operation</returns>
         public virtual void RenameFile(string sourcePath, string newName)
         {
-            try
-            {
-                var destinationPath = Path.Combine(Path.GetDirectoryName(sourcePath), newName);
-                FileMove(sourcePath, destinationPath);
-            }
-            catch (Exception ex)
-            {
-                throw new RoxyFilemanException("E_RenameFile", ex);
-            }
+            throw new RoxyFilemanException("E_RenameFile");
         }
 
         /// <summary>
@@ -526,25 +421,7 @@ namespace Nop.Services.Media.RoxyFileman
         /// <returns>A task that represents the asynchronous operation</returns>
         public virtual void CopyFile(string sourcePath, string destinationPath)
         {
-            var sourceFile = GetFileInfo(sourcePath);
-
-            if (!sourceFile.Exists)
-                throw new RoxyFilemanException("E_CopyFileInvalisPath");
-
-            var newFilePath = Path.Combine(destinationPath, sourceFile.Name);
-            var destinationFile = GetFileInfo(newFilePath);
-
-            if (destinationFile.Exists)
-                newFilePath = Path.Combine(destinationPath, GetUniqueFileName(destinationPath, sourceFile.Name));
-
-            try
-            {
-                File.Copy(sourceFile.PhysicalPath, GetFullPath(newFilePath));
-            }
-            catch
-            {
-                throw new RoxyFilemanException("E_CopyFile");
-            }
+            throw new RoxyFilemanException("E_CopyFile");
         }
 
         /// <summary>
@@ -555,12 +432,7 @@ namespace Nop.Services.Media.RoxyFileman
         /// <returns>A task that represents the asynchronous operation</returns>
         public virtual void CreateDirectory(string parentDirectoryPath, string name)
         {
-            //validate path and get absolute form
-            var fullPath = GetFullPath(Path.Combine(parentDirectoryPath, name));
-
-            var newDirectory = new DirectoryInfo(fullPath);
-            if (!newDirectory.Exists)
-                newDirectory.Create();
+            throw new RoxyFilemanException("E_CannotCreateDir");
         }
 
         /// <summary>
@@ -569,24 +441,7 @@ namespace Nop.Services.Media.RoxyFileman
         /// <param name="path">Path to the directory</param>
         public virtual void DeleteDirectory(string path)
         {
-            var sourceDirInfo = new DirectoryInfo(GetFullPath(path));
-            if (!sourceDirInfo.Exists)
-                throw new RoxyFilemanException("E_DeleteDirInvalidPath");
-
-            if (string.Equals(sourceDirInfo.FullName, Root, StringComparison.InvariantCultureIgnoreCase))
-                throw new RoxyFilemanException("E_CannotDeleteRoot");
-
-            if (sourceDirInfo.GetFiles().Length > 0 || sourceDirInfo.GetDirectories().Length > 0)
-                throw new RoxyFilemanException("E_DeleteNonEmpty");
-
-            try
-            {
-                sourceDirInfo.Delete();
-            }
-            catch
-            {
-                throw new RoxyFilemanException("E_CannotDeleteDir");
-            }
+            throw new RoxyFilemanException("E_CannotDeleteDir");
         }
 
         /// <summary>
@@ -604,10 +459,10 @@ namespace Nop.Services.Media.RoxyFileman
 
             await using var stream = new FileStream(GetFullPath(destinationFile), FileMode.Create);
 
+            using var memoryStream = new MemoryStream();
+            await fileStream.CopyToAsync(memoryStream);
             if (GetFileType(Path.GetExtension(uniqueFileName)) == "image")
             {
-                using var memoryStream = new MemoryStream();
-                await fileStream.CopyToAsync(memoryStream);
 
                 var roxyConfig = Singleton<RoxyFilemanConfig>.Instance;
 
@@ -620,7 +475,7 @@ namespace Nop.Services.Media.RoxyFileman
             }
             else
             {
-                await fileStream.CopyToAsync(stream);
+                await _roxyAzurePictureService.SaveImageAsync(directoryPath, fileName, null, memoryStream.ToArray());
             }
 
             await stream.FlushAsync();
@@ -660,26 +515,7 @@ namespace Nop.Services.Media.RoxyFileman
         /// <returns>The byte array</returns>
         public virtual byte[] CreateZipArchiveFromDirectory(string directoryPath)
         {
-            var sourceDirInfo = new DirectoryInfo(GetFullPath(directoryPath));
-            if (!sourceDirInfo.Exists)
-                throw new RoxyFilemanException("E_CreateArchive");
-
-            using var memoryStream = new MemoryStream();
-            using (var archive = new ZipArchive(memoryStream, ZipArchiveMode.Create, true))
-            {
-                foreach (var file in sourceDirInfo.EnumerateFiles("*", SearchOption.AllDirectories))
-                {
-                    var fileRelativePath = file.FullName.Replace(sourceDirInfo.FullName, string.Empty)
-                        .TrimStart('\\');
-
-                    using var fileStream = file.OpenRead();
-                    using var fileStreamInZip = archive.CreateEntry(fileRelativePath).Open();
-                    fileStream.CopyTo(fileStreamInZip);
-                }
-            }
-
-            //ToArray() should be outside of the archive using
-            return memoryStream.ToArray();
+            throw new RoxyFilemanException("E_CreateArchive");
         }
 
         #endregion

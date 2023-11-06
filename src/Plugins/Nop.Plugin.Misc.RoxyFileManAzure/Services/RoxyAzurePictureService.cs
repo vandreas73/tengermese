@@ -15,11 +15,13 @@ using Nop.Data;
 using Nop.Services.Catalog;
 using Nop.Services.Configuration;
 using Nop.Services.Logging;
+using Nop.Services.Media;
+using Nop.Services.Media.RoxyFileman;
 using Nop.Services.Seo;
 using SkiaSharp;
 using static System.Reflection.Metadata.BlobBuilder;
 
-namespace Nop.Services.Media.RoxyFileman
+namespace Nop.Plugin.Misc.RoxyFileManAzure.Services
 {
     public class RoxyAzurePictureService
     {

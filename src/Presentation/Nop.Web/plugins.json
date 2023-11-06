@@ -86,6 +86,10 @@
     {
       "SystemName": "Misc.BillingoInvoicing",
       "Version": "1.00"
+    },
+    {
+      "SystemName": "Misc.RoxyFileManAzure",
+      "Version": "1.00"
     }
   ],
   "PluginNamesToUninstall": [],
