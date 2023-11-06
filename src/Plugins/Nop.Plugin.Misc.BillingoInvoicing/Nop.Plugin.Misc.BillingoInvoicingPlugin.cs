@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Nop.Services.Cms;
+using Nop.Services.Common;
 using Nop.Services.Configuration;
 using Nop.Services.Localization;
 using Nop.Services.Plugins;
@@ -14,7 +15,7 @@ namespace Nop.Plugin.Misc.BillingoInvoicing
     /// <summary>
     /// Rename this file and change to the correct type
     /// </summary>
-    public class CustomPlugin : BasePlugin
+    public class CustomPlugin : BasePlugin, IMiscPlugin
     {
         private readonly ISettingService _settingService;
         private readonly IActionContextAccessor _actionContextAccessor;

@@ -13,6 +13,8 @@ WORKDIR /src/Presentation/Nop.Web
 RUN dotnet build Nop.Web.csproj -c Release
 
 # build plugins
+WORKDIR /src/Plugins/Nop.Plugin.Misc.RoxyFileManAzure
+RUN dotnet build Nop.Plugin.Misc.RoxyFileManAzure.csproj -c Release
 WORKDIR /src/Plugins/Nop.Plugin.Widgets.ImprovedSearch
 RUN dotnet build Nop.Plugin.Widgets.ImprovedSearch.csproj -c Release
 WORKDIR /src/Plugins/Nop.Plugin.DiscountRules.CustomerRoles
