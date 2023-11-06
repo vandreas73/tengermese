@@ -84,11 +84,11 @@
       "Version": "1.00"
     },
     {
-      "SystemName": "Misc.BillingoInvoicing",
+      "SystemName": "Misc.RoxyFileManAzure",
       "Version": "1.00"
     },
     {
-      "SystemName": "Misc.RoxyFileManAzure",
+      "SystemName": "Misc.BillingoInvoicing",
       "Version": "1.00"
     }
   ],

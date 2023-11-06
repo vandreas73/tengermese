@@ -10,9 +10,9 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Models
 {
     public record ConfigurationModel : BaseNopModel
     {
-        [NopResourceDisplayName("Plugins.Misc.BillingoInvoicing.Fields.ApiKey.Hint")]
+        [NopResourceDisplayName("Plugins.Misc.BillingoInvoicing.Fields.ApiKey")]
         public string ApiKey { get; set; }
-        [NopResourceDisplayName("Plugins.Misc.BillingoInvoicing.Fields.BlockId.Hint")]
+        [NopResourceDisplayName("Plugins.Misc.BillingoInvoicing.Fields.BlockId")]
         public int BlockId { get; set; }
     }
 }

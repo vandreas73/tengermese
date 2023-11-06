@@ -15,14 +15,14 @@ namespace Nop.Plugin.Misc.BillingoInvoicing
     /// <summary>
     /// Rename this file and change to the correct type
     /// </summary>
-    public class CustomPlugin : BasePlugin, IMiscPlugin
+    public class BillingoInvoicingPlugin : BasePlugin, IMiscPlugin
     {
         private readonly ISettingService _settingService;
         private readonly IActionContextAccessor _actionContextAccessor;
         private readonly IUrlHelperFactory _urlHelperFactory;
         private readonly ILocalizationService _localizationService;
 
-        public CustomPlugin(ISettingService settingService,
+        public BillingoInvoicingPlugin(ISettingService settingService,
             IActionContextAccessor actionContextAccessor,
             IUrlHelperFactory urlHelperFactory,
             ILocalizationService localizationService)
@@ -45,6 +45,10 @@ namespace Nop.Plugin.Misc.BillingoInvoicing
             await _localizationService.AddOrUpdateLocaleResourceAsync(new Dictionary<string, string>
             {
                 ["Plugins.Misc.BillingoInvoicing.Title"] = "Billingo számlázás",
+                ["Plugins.Misc.BillingoInvoicing.Fields.ApiKey"] = "Billingo V3 API kulcs",
+                ["Plugins.Misc.BillingoInvoicing.Fields.ApiKey.Hint"] = "app.billingo.hu - Összeköttetések - API",
+                ["Plugins.Misc.BillingoInvoicing.Fields.BlockId"] = "Billingo számlatömb id",
+                ["Plugins.Misc.BillingoInvoicing.Fields.BlockId.Hint"] = "app.billingo.hu - Beállítások - Bizonylat beállítások - Bizonylattömbök - API ID",
             });
 
                 await base.InstallAsync();
