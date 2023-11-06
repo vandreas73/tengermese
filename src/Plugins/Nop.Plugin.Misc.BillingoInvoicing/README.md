@@ -1,8 +1,8 @@
-### Billingo Invlicing Automatically
+### Billingo Invoicing Automatically
 NopCommerce plugin
 
 ## Short description
-With Billingo Invoicing plugin you can create invoices automatically using [Billingo](https://www.billingo.hu/). The extension creates and sends the invoice to the user after payment.
+With the Billingo Invoicing plugin you can create invoices automatically using <a href="https://www.billingo.hu/">Billingo</a>. The extension creates and sends the invoice to the user after payment.
 
 ## Full description
 <a href="https://www.billingo.hu/">Billingo</a> is a well-known financial tool in Hungary. It has many useful services, the Billingo Invoicing extension uses the invoice generation part of them. You can configure Billingo to synchronize with NAV (as it is compulsory in Hungary).<br>
