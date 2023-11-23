@@ -49,11 +49,8 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Services
 
         public async Task HandleEventAsync(OrderPaidEvent eventMessage)
         {
-            Console.WriteLine("InvoiceGenerator HandleEventAsync");
             if (eventMessage?.Order != null)
             {
-                Console.WriteLine("InvoiceGenerator HandleEventAsync order not null");
-
                 var orderItems = await _orderService.GetOrderItemsAsync(eventMessage.Order.Id);
                 var currentAddress = await _addressService.GetAddressByIdAsync(eventMessage.Order.BillingAddressId);
                 var currentCountry = (await _countryService.GetCountryByAddressAsync(currentAddress));
