@@ -18,6 +18,7 @@ namespace Nop.Plugin.Misc.BillingoInvoicing.Infrastructure
 
             //register services and interfaces
             services.AddScoped<BillingoClientService, BillingoClientService>();
+            services.AddScoped<BillingoEmailMessageService, BillingoEmailMessageService>();
         }
 
         public void Configure(IApplicationBuilder application)
