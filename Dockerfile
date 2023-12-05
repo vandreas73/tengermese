@@ -5,7 +5,7 @@ WORKDIR /src
 COPY ./src ./
 
 # restore solution
-RUN dotnet restore NopCommerce.sln
+RUN dotnet restore Tengermese.sln
 
 WORKDIR /src/Presentation/Nop.Web   
 
