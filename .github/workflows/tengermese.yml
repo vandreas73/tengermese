@@ -80,4 +80,4 @@ jobs:
       with:
         azcliversion: 2.30.0
         inlineScript: |
-          az webapp config container set --name tengermese-web-app --resource-group Meseterapeuta-honlap --docker-custom-image-name vandreas73/tengermese:${{ needs.calculate-version.outputs.majorMinorPatch }}
+          az webapp config container set --name tengermese --resource-group Meseterapeuta-honlap --docker-custom-image-name vandreas73/tengermese:${{ needs.calculate-version.outputs.majorMinorPatch }}
