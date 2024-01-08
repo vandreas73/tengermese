@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Nop.Core.Domain.Blogs;
 using Nop.Core;
 using Nop.Web.Models.Blogs;
-using Nop.Plugin.Widgets.ImprovedSearch.Services;
-using Nop.Web.Models.Catalog;
 using Nop.Web.Factories;
 using Nop.Plugin.Widgets.ImprovedSearch.Models;
 

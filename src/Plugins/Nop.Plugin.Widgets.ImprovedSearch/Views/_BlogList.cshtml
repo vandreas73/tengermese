@@ -1,10 +1,12 @@
 @model ImprovedBlogPostListModel
 
 @using Nop.Core.Domain.Blogs
+@using Ganss.Xss
 @inject INopHtmlHelper NopHtml
 
 @{
 	NopHtml.AddCssFileParts("~/Plugins/Widgets.ImprovedSearch/Views/improvedStyle.css", excludeFromBundle: false);
+	var sanitizer = new HtmlSanitizer();
 }
 
 <div class="page-body">
@@ -17,7 +19,7 @@
 		}
 		else if (!string.IsNullOrWhiteSpace(Model.NoResultMessage))
 		{
-			@Html.Raw(Model.NoResultMessage)
+			@Model.NoResultMessage
 		}
 		else
 		{
@@ -31,11 +33,11 @@
 					<div class="post-body">
 						@if (string.IsNullOrEmpty(item.BodyOverview))
 						{
-							@Html.Raw(item.Body)
+							@Html.Raw(sanitizer.Sanitize(item.Body, "https://tengermese.azurewebsites.net"))
 						}
 						else
 						{
-							@Html.Raw(item.BodyOverview)
+							@Html.Raw(sanitizer.Sanitize(item.BodyOverview, "https://tengermese.azurewebsites.net"))
 						}
 					</div>
 					<div class="blog-details">

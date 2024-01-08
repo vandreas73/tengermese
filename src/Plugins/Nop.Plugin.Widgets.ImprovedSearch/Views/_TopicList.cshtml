@@ -1,6 +1,11 @@
 @model ImprovedTopicListModel
 
 @using Nop.Core.Domain.Topics
+@using Ganss.Xss
+
+@{
+	var sanitizer = new HtmlSanitizer();
+}
 
 <div class="page-body">
 	<div class="blog-posts">
@@ -12,7 +17,7 @@
 		}
 		else if (!string.IsNullOrWhiteSpace(Model.NoResultMessage))
 		{
-			@Html.Raw(Model.NoResultMessage)
+			@Model.NoResultMessage
 		}
 		else
 		{
@@ -23,7 +28,7 @@
 						<a class="post-title" href="@(Url.RouteUrl<Topic>(new { SeName = item.SeName }))">@item.Title</a>
 					</div>
 					<div class="post-body">
-						@Html.Raw(item.Body)
+						@Html.Raw(sanitizer.Sanitize(item.Body, "https://tengermese.azurewebsites.net"))
 					</div>
 					<div class="blog-details">
 						<div class="buttons">
